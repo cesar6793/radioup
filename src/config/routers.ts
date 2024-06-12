@@ -1,0 +1,48 @@
+const Routers = {
+  footer: [
+    {
+      title: 'Admisiones',
+      path: '/admision'
+    },
+    {
+      title: 'Nuestro campus',
+      path: '/nuestros-campus'
+    },
+    {
+      title: 'Contáctanos',
+      path: '/contactanos'
+    },
+    {
+      title: 'Políticas de privacidad',
+      path: '/politicas-de-privacidad'
+    },
+    {
+      title: 'Términos y condiciones',
+      path: '/terminos-y-condiciones'
+    }
+  ],
+  Header: [
+    {
+      title: 'Admisiones',
+      path: '/admision'
+    },
+    {
+      title: 'Nuestro campus',
+      path: '/nuestros-campus'
+    },
+    {
+      title: 'Contáctanos',
+      path: '/contactanos'
+    },
+    {
+      title: 'Políticas de privacidad',
+      path: '/politicas-de-privacidad'
+    },
+    {
+      title: 'Términos y condiciones',
+      path: '/terminos-y-condiciones'
+    }
+  ]
+}
+
+export { Routers }
