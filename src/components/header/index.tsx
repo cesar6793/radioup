@@ -74,13 +74,12 @@ const Header: React.FC = () => {
             </Link>
 
             {/* text */}
-            <div className="text-xs self-end ml-4 hidden lg:block">
+            <div className="text-xs  ml-4 hidden lg:block">
               <span>RadioUPC2024</span>
               <Link
                 href="/#metodologia"
                 className="text-[#2344C4] underline ml-2"
-              >
-                siempre <strong>a la vanguardia de la tecnologia</strong>
+              >siempre <strong>a la vanguardia de la tecnologia</strong>
               </Link>
             </div>
           </div>

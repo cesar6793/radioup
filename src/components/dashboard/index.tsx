@@ -25,7 +25,8 @@ const DashboardMedico: React.FC<DashboardMedicoProps> = ({ imageUrl }) => {
     Modalidad: Radiografía de Tórax
 
     Hallazgos:
-    - Pulmones: Volúmenes pulmonares dentro de los límites normales. No se observan infiltrados, consolidaciones ni masas.
+    - Pulmones: Volúmenes pulmonares dentro de los límites normales. No se observan infiltrados, consolidaciones
+      ni masas.
     - Corazón: Tamaño y silueta cardíaca normales.
     - Mediastino: No se observan adenopatías ni masas mediastínicas.
     - Diafragma: Contornos diafragmáticos normales.
