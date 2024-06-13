@@ -137,7 +137,7 @@ const Header: React.FC = () => {
 
         <div className="z-10 w-full lg:w-1/2">
           <div className="px-4 py-8 flex justify-between items-center">
-            <Image src="/logo.svg" width={115} height={100} alt="logo" />
+            <Image src="/logo-blue2.svg" width={115} height={100} alt="logo" />
             <span onClick={toggleSidebar} className="lg:absolute lg:right-14">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -322,13 +322,13 @@ const Header: React.FC = () => {
           </p>
           <ul className="mt-4 text-white opacity-70 text-base hidden flex-col gap-4 pl-4 lg:flex">
             <li className="hover:text-[#F180D9] hover:opacity-100">
-              <a href="">Intranet</a>
+              <a href="">Git</a>
             </li>
             {/* <li className='hover:text-[#F180D9]'>
               <a href=''>Intranet para docentes</a>
             </li> */}
             <li className="hover:text-[#F180D9] hover:opacity-1">
-              <a href="esencial-para-padres#calendar">Calendario académico</a>
+              <a href="esencial-para-padres#calendar">Ayuda</a>
             </li>
             <li className="hover:text-[#F180D9] hover:opacity-1">
               <a href="/#questions">Preguntas frecuentes</a>
