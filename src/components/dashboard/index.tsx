@@ -40,7 +40,7 @@ const DashboardMedico: React.FC<DashboardMedicoProps> = ({ imageUrl }) => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <h2>Informe Radiologico</h2>
+      <h2>.</h2>
       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
         <img src={imageUrl} alt="Uploaded" style={{ maxWidth: '500px', marginRight: '20px' }} />
         <div style={{ flex: 1 }}>
