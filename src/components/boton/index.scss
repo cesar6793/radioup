@@ -1,0 +1,21 @@
+/* Boton.css */
+
+.contenedor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh; 
+}
+
+.boton {
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.boton:hover {
+  background-color: #333; /* Cambia el color al pasar el mouse sobre el botón */
+}

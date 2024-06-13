@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
             className="md:hidden"
           />
           <Image
-            src="/logo.svg"
+            src="/logo-blue2.svg"
             width={260}
             height={120}
             alt="eusebio"
@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
         </div>
         <div className=" pb-10">
           <p className="title pb-4 text-lg md:text-[20px] font-black font-eusebio-title leading-6 text-wrap">
-            Estudia en Eusebio Arróniz
+            RadioUP
           </p>
           <ul className="flex flex-col font-eusebio-paragraph text-base md:text-lg md:flex md:flex-col">
             {footer.map((item, index) => (
@@ -60,7 +60,7 @@ const Footer: React.FC = () => {
               rel="stylesheet"
               href="mailto:contacto@eusebioarroniz.edu.pe"
             >
-              contacto@eusebioarroniz.edu.pe
+              contacto@up.edu.pe
             </a>
           </div>
           <div className="whatsapp pb-4 md:mb-3">
@@ -70,11 +70,11 @@ const Footer: React.FC = () => {
             <a
               className="font-semibold"
               rel="stylesheet"
-              href="https://wa.me/+51966461384"
+              href="https://wa.me/+51999333222"
               target="_blank"
             >
               <p className="font-eusebio-paragraph text-base md:text-[20px]">
-                (+51) 966 461 384
+                (+51) 999 333 222
               </p>
             </a>
           </div>
@@ -88,7 +88,7 @@ const Footer: React.FC = () => {
                 href="https://maps.app.goo.gl/TsmCeJZNS2ZhSWFX8"
                 target="_blank"
               >
-                Av. Tupac Amaru 257 - Huacho, Perú
+                Prolongación Primavera 2390, Santiago de Surco 15023 - Lima, Perú
               </a>
             </p>
           </div>
@@ -150,7 +150,7 @@ const Footer: React.FC = () => {
       </div>
       <div className="flex flex-col-reverse justify-center justify-items-center pt-10 md:flex-row md:justify-between">
         <div className="text-center md:text-left text-eusebio-white-100 font-eusebio-paragraph md:font-eusebio-title-medium text-sm md:text-base not-italic font-normal md:font-medium leading-5 md:leading-6 opacity-70">
-          Copyright © 2023. IEP Eusebio Arróniz. Todos los derechos reservados
+          Copyright © 2023. RadioUP 2024. Todos los derechos reservados
         </div>
         <Link
           href="/libro-de-reclamaciones"

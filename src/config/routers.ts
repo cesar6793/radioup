@@ -1,11 +1,8 @@
 const Routers = {
   footer: [
+    
     {
-      title: 'Admisiones',
-      path: '/admision'
-    },
-    {
-      title: 'Nuestro campus',
+      title: 'Tecnologia',
       path: '/nuestros-campus'
     },
     {

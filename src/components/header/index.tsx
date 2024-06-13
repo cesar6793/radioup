@@ -65,7 +65,7 @@ const Header: React.FC = () => {
 
             <Link href="/">
               <Image
-                src="/logo-blue.svg"
+                src="/logo-blue2.svg"
                 width={132}
                 height={100}
                 alt="logo"
@@ -75,12 +75,12 @@ const Header: React.FC = () => {
 
             {/* text */}
             <div className="text-xs self-end ml-4 hidden lg:block">
-              <span>Mens sana in corpore sano</span>
+              <span>RadioUPC2024</span>
               <Link
                 href="/#metodologia"
                 className="text-[#2344C4] underline ml-2"
               >
-                Conoce nuestra <strong>metodología de enseñanza</strong>
+                siempre <strong>a la vanguardia de la tecnologia</strong>
               </Link>
             </div>
           </div>
@@ -165,7 +165,7 @@ const Header: React.FC = () => {
                   onClick={toggleSidebar}
                   className="px-4 text-lg font-eusebio-title hover:text-[#F180D9] lg:text-[28px]"
                 >
-                  Admisiones
+                  Pacientes
                 </Link>
                 <hr className="mt-7 opacity-40 border-[1.5px] lg:hidden" />
               </li>
@@ -174,7 +174,7 @@ const Header: React.FC = () => {
                   {({ open }) => (
                     <>
                       <Disclosure.Button className="px-4 flex w-full justify-between text-left items-center">
-                        <span className="">Excelencia académica</span>
+                        <span className="">Clinicas asociadas</span>
                         <ChevronDownIcon
                           className={`${
                             open ? "rotate-180 transform" : ""
@@ -189,7 +189,7 @@ const Header: React.FC = () => {
                               href="/inicial"
                               onClick={toggleSidebar}
                             >
-                              Primeros años
+                              Auna
                             </Link>
                           </li>
                           <Link
@@ -197,14 +197,14 @@ const Header: React.FC = () => {
                             onClick={toggleSidebar}
                             className="px-4 hover:text-[#F180D9]"
                           >
-                            Escuela primaria
+                            Internacional
                           </Link>
                           <Link
                             href="/secundaria"
                             onClick={toggleSidebar}
                             className="px-4 hover:text-[#F180D9]"
                           >
-                            Escuela secundaria
+                            SAS
                           </Link>
                         </ul>
                       </Disclosure.Panel>
@@ -265,7 +265,7 @@ const Header: React.FC = () => {
                   onClick={toggleSidebar}
                   className="px-4 text-lg hover:text-[#F180D9] lg:text-[28px]"
                 >
-                  Esencial para padres
+                  Radiologos
                 </Link>
                 <hr className="mt-7 opacity-40 border-[1.5px] lg:hidden" />
               </li>
@@ -275,7 +275,7 @@ const Header: React.FC = () => {
                   onClick={toggleSidebar}
                   className="px-4 text-lg hover:text-[#F180D9] lg:text-[28px]"
                 >
-                  Nuestra escuela
+                  Nuestra empresa
                 </Link>
                 <hr className="px-4 mt-7 opacity-40 border-[1.5px] lg:hidden" />
               </li>
