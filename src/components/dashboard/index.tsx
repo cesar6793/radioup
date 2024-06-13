@@ -1,41 +1,62 @@
+"use client";
+
 import React, { useState } from 'react';
-import Radiografia from '../radiografia';
-import InformeRadiologico from '../informe';
-import Recomendaciones from '../recomendaciones';
 
-const DashboardMedico = () => {
-  const [imageUrl, setImageUrl] = useState(null); // Estado para almacenar la URL de la imagen
-  const [showDashboard, setShowDashboard] = useState(false); // Estado para mostrar/ocultar el dashboard
+interface DashboardMedicoProps {
+  imageUrl: string | null;
+}
 
-  const handleDrop = (acceptedFiles) => {
-    // Manejar la imagen cargada desde el Dropzone
-    if (acceptedFiles.length > 0) {
-      setImageUrl(URL.createObjectURL(acceptedFiles[0]));
-      setShowDashboard(true); // Mostrar el dashboard al cargar la imagen
-    }
+const DashboardMedico: React.FC<DashboardMedicoProps> = ({ imageUrl }) => {
+  const [comments, setComments] = useState<string>('');
+
+  const handleCommentsChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setComments(event.target.value);
   };
 
+  if (!imageUrl) {
+    return null;
+  }
+
+  const radiologicalReport = `
+    Informe Radiológico:
+
+    Paciente: Juan Pérez
+    Fecha del Estudio: 12 de junio de 2024
+    Modalidad: Radiografía de Tórax
+
+    Hallazgos:
+    - Pulmones: Volúmenes pulmonares dentro de los límites normales. No se observan infiltrados, consolidaciones ni masas.
+    - Corazón: Tamaño y silueta cardíaca normales.
+    - Mediastino: No se observan adenopatías ni masas mediastínicas.
+    - Diafragma: Contornos diafragmáticos normales.
+    - Pleura: No se observa derrame pleural ni neumotórax.
+
+    Impresión:
+    - Radiografía de tórax normal. No se identifican hallazgos patológicos significativos.
+
+    Recomendaciones:
+    - Continuar con controles rutinarios según indicación médica.
+  `;
+
   return (
-    <div>
-      {/* Mostrar la imagen de la radiografía */}
-      {showDashboard && <Radiografia imageUrl={imageUrl} />}
-
-      {/* Mostrar el informe radiológico */}
-      {showDashboard && (
-        <InformeRadiologico
-          hallazgos="Hallazgos radiológicos aquí"
-          diagnostico="Diagnóstico específico aquí"
-          impresiones="Impresiones y recomendaciones aquí"
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <h2>Informe Radiologico</h2>
+      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
+        <img src={imageUrl} alt="Uploaded" style={{ maxWidth: '500px', marginRight: '20px' }} />
+        <div style={{ flex: 1 }}>
+          <h3>Informe Radiológico</h3>
+          <pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>{radiologicalReport}</pre>
+        </div>
+      </div>
+      <div style={{ width: '100%', marginTop: '20px' }}>
+        <h3>Recomendaciones / Comentarios</h3>
+        <textarea
+          value={comments}
+          onChange={handleCommentsChange}
+          placeholder="Escriba sus recomendaciones o comentarios aquí..."
+          style={{ width: '100%', minHeight: '100px' }}
         />
-      )}
-
-      {/* Recuadro de texto para las recomendaciones */}
-      {showDashboard && <Recomendaciones onChange={undefined} value={undefined} />}
-      
-      {/* Botón para activar el dashboard */}
-      {!showDashboard && (
-        <button onClick={() => setShowDashboard(true)}>Analizar</button>
-      )}
+      </div>
     </div>
   );
 };
