@@ -163,7 +163,6 @@ const Footer: React.FC = () => {
             alt="eusebio"
             className="mr-4"
           />
-          Libro de reclamos
         </Link>
       </div>
 
