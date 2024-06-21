@@ -4,40 +4,20 @@ import React, { useState } from 'react';
 
 interface DashboardMedicoProps {
   imageUrl: string | null;
+  report: string | null;
 }
 
-const DashboardMedico: React.FC<DashboardMedicoProps> = ({ imageUrl }) => {
+const DashboardMedico: React.FC<DashboardMedicoProps> = ({ imageUrl,report }) => {
   const [comments, setComments] = useState<string>('');
 
   const handleCommentsChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComments(event.target.value);
   };
 
-  if (!imageUrl) {
+  if (!imageUrl || !report ) {
     return null;
   }
 
-  const radiologicalReport = `
-    Informe Radiológico:
-
-    Paciente: Juan Pérez
-    Fecha del Estudio: 12 de junio de 2024
-    Modalidad: Radiografía de Tórax
-
-    Hallazgos:
-    - Pulmones: Volúmenes pulmonares dentro de los límites normales. No se observan infiltrados, consolidaciones
-      ni masas.
-    - Corazón: Tamaño y silueta cardíaca normales.
-    - Mediastino: No se observan adenopatías ni masas mediastínicas.
-    - Diafragma: Contornos diafragmáticos normales.
-    - Pleura: No se observa derrame pleural ni neumotórax.
-
-    Impresión:
-    - Radiografía de tórax normal. No se identifican hallazgos patológicos significativos.
-
-    Recomendaciones:
-    - Continuar con controles rutinarios según indicación médica.
-  `;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -46,7 +26,7 @@ const DashboardMedico: React.FC<DashboardMedicoProps> = ({ imageUrl }) => {
         <img src={imageUrl} alt="Uploaded" style={{ maxWidth: '500px', marginRight: '20px' }} />
         <div style={{ flex: 1 }}>
           <h3>Informe Radiológico</h3>
-          <pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>{radiologicalReport}</pre>
+          <pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>{report}</pre>
         </div>
       </div>
       <div style={{ width: '100%', marginTop: '20px' }}>

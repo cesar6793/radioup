@@ -1,5 +1,6 @@
 "use client";
 import type { Metadata } from "next";
+import {getReport, uploadFile} from ".//services/apiService"
 import { Inter } from "next/font/google";
 import { useState } from "react";
 import "./globals.css";
@@ -22,7 +23,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [file, setFile] = useState<File | null>(null);
   const [showDashboard, setShowDashboard] = useState(false);
+  const [report, setReport] = useState<string | null>(null);
 
   const handleDrop = (acceptedFiles: File[]) => {
     console.log('Files dropped:', acceptedFiles); // Debug statement
@@ -31,8 +34,9 @@ export default function RootLayout({
       const file = acceptedFiles[0];
 
       if (file.type.startsWith('image/')) {
-        const imageUrl = URL.createObjectURL(file);
-        setImageUrl(imageUrl);
+        //const imageUrl = URL.createObjectURL(file);
+        //setImageUrl(imageUrl);
+        setFile(file);
         console.log('Image URL set:', imageUrl); // Debug statement
 
         // Don't set showDashboard to true here
@@ -42,11 +46,29 @@ export default function RootLayout({
     }
   };
 
-  const handleAnalyzeClick = () => {
+  const handleAnalyzeClick = async () => {
     console.log('Analyze button clicked'); // Debug statement
 
-    if (imageUrl) {
-      setShowDashboard(true);
+    if (file) {
+      try {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        const response = await uploadFile(formData);
+        console.log('File uploaded:', response);
+        
+        setImageUrl(response.url);
+        // Lógica adicional después de enviar la imagen al servidor, si es necesario
+
+        const reportResponse = await getReport(response.url);
+        console.log('Report received:', reportResponse);
+        setReport(reportResponse.report); 
+
+        setShowDashboard(true); // Mostrar el dashboard después de enviar la imagen
+      } catch (error) {
+        console.error('Error uploading file:', error);
+        // Manejo de errores
+      }
     } else {
       console.error('No image URL set. Please upload an image first.');
     }
@@ -64,7 +86,7 @@ export default function RootLayout({
               <Boton texto={"Analizar"} onClick={handleAnalyzeClick} />
             </div>
           ) : (
-            <DashboardMedico imageUrl={imageUrl} />
+            <DashboardMedico imageUrl={imageUrl} report={report} />
           )}
         </div>
         <Footer />
@@ -72,3 +94,4 @@ export default function RootLayout({
     </html>
   );
 }
+
