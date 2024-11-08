@@ -1,6 +1,6 @@
 "use client";
 import type { Metadata } from "next";
-import {getReport, uploadFile} from ".//services/apiService"
+import { getReport, uploadFile } from "@/services/apiService";
 import { Inter } from "next/font/google";
 import { useState } from "react";
 import "./globals.css";
@@ -11,11 +11,6 @@ import Boton from "@/components/boton";
 import DashboardMedico from "@/components/dashboard";
 
 const inter = Inter({ subsets: ["latin"] });
-/*
-export const metadata: Metadata = {
-  title: "radioup",
-  description: "radiografias",
-};*/
 
 export default function RootLayout({
   children,
@@ -28,18 +23,13 @@ export default function RootLayout({
   const [report, setReport] = useState<string | null>(null);
 
   const handleDrop = (acceptedFiles: File[]) => {
-    console.log('Files dropped:', acceptedFiles); // Debug statement
+    console.log('Files dropped:', acceptedFiles);
 
     if (acceptedFiles && acceptedFiles.length > 0) {
       const file = acceptedFiles[0];
-
       if (file.type.startsWith('image/')) {
-        //const imageUrl = URL.createObjectURL(file);
-        //setImageUrl(imageUrl);
         setFile(file);
-        console.log('Image URL set:', imageUrl); // Debug statement
-
-        // Don't set showDashboard to true here
+        console.log('File set:', file);
       } else {
         console.error('El archivo no es una imagen.');
       }
@@ -47,30 +37,30 @@ export default function RootLayout({
   };
 
   const handleAnalyzeClick = async () => {
-    console.log('Analyze button clicked'); // Debug statement
+    console.log('Analyze button clicked');
 
     if (file) {
       try {
         const formData = new FormData();
         formData.append('file', file);
 
+        // Subir el archivo y obtener la URL
         const response = await uploadFile(formData);
         console.log('File uploaded:', response);
-        
         setImageUrl(response.url);
-        // Lógica adicional después de enviar la imagen al servidor, si es necesario
 
+        // Obtener el reporte usando la URL de la imagen
         const reportResponse = await getReport(response.url);
         console.log('Report received:', reportResponse);
-        setReport(reportResponse.report); 
+        setReport(reportResponse.report);
 
-        setShowDashboard(true); // Mostrar el dashboard después de enviar la imagen
+        // Mostrar el dashboard con la imagen y el reporte
+        setShowDashboard(true);
       } catch (error) {
-        console.error('Error uploading file:', error);
-        // Manejo de errores
+        console.error('Error uploading file or getting report:', error);
       }
     } else {
-      console.error('No image URL set. Please upload an image first.');
+      console.error('No image selected. Please upload an image first.');
     }
   };
 
@@ -94,4 +84,3 @@ export default function RootLayout({
     </html>
   );
 }
-

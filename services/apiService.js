@@ -1,11 +1,12 @@
-const BASE_URL = 'http://localhost:8000'; // Ajusta la URL según corresponda
+const BASE_URL = ''; 
 
 export async function uploadFile(formData) {
   try {
-    const response = await fetch(`${BASE_URL}/uploadfile/`, {
+    const response = await fetch(`/api/uploadfile`, { 
       method: 'POST',
       body: formData,
     });
+    
     if (!response.ok) {
       throw new Error('Error uploading file');
     }
@@ -17,12 +18,16 @@ export async function uploadFile(formData) {
 }
 
 export async function getReport(imageUrl) {
-    const response = await fetch(`http://localhost:8000/get_report/?image_url=${encodeURIComponent(imageUrl)}`);
-  
+  try {
+    const response = await fetch(`/api/get_report?image_url=${encodeURIComponent(imageUrl)}`); 
+
     if (!response.ok) {
       throw new Error("Error fetching report");
     }
-  
-    return await response.json();
-  }
 
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching report:', error);
+    throw error;
+  }
+}
