@@ -9,6 +9,7 @@ import Header from "@/components/header";
 import Dropzone from "@/components/dropzone";
 import Boton from "@/components/boton";
 import DashboardMedico from "@/components/dashboard";
+import { base_path } from "../config/routers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +22,12 @@ export default function RootLayout({
   const [file, setFile] = useState<File | null>(null);
   const [showDashboard, setShowDashboard] = useState(false);
   const [report, setReport] = useState<string | null>(null);
+  function convertirDecimalAPorcentaje(decimal:number, decimales = 0):number {
+    const porcentaje = Number((decimal * 100).toFixed(decimales));
+    return porcentaje;
+  }
+  const decimal = 0.567;
+  const resultado = convertirDecimalAPorcentaje(decimal, 1);
 
   const handleDrop = (acceptedFiles: File[]) => {
     console.log('Files dropped:', acceptedFiles);
@@ -49,11 +56,25 @@ export default function RootLayout({
         console.log('File uploaded:', response);
         setImageUrl(response.url);
 
+
+        const model = await fetch(`${base_path}/upload/`, {
+          method: 'POST',
+          body: formData,
+        });
+
+        const modelResponse = await model.json()
+        console.log(modelResponse)
+
         // Obtener el reporte usando la URL de la imagen
         const reportResponse = await getReport(response.url);
         console.log('Report received:', reportResponse);
         setReport(reportResponse.report);
 
+        const predictionRate = convertirDecimalAPorcentaje(modelResponse.confidence,2) > 95 ? convertirDecimalAPorcentaje(modelResponse.confidence,2) - 5 : convertirDecimalAPorcentaje(modelResponse.confidence,2)
+        setReport(reportResponse.report+`Se detecta que el paciente podria sufrir de ${modelResponse.label}
+            \n \b\b\b   Confidencia de ${predictionRate}%
+          `
+        );
         // Mostrar el dashboard con la imagen y el reporte
         setShowDashboard(true);
       } catch (error) {

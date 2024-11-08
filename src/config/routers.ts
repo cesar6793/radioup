@@ -42,4 +42,6 @@ const Routers = {
   ]
 }
 
-export { Routers }
+const base_path = "http://localhost:8000"
+
+export { Routers, base_path }
