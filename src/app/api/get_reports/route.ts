@@ -4,8 +4,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 const getReportHandler = (req: NextApiRequest, res: NextApiResponse) => {
   const { image_url } = req.query;
 
-  // Aquí puedes agregar la lógica para generar el informe basado en la URL de la imagen.
-  // Este ejemplo devuelve un informe fijo como si fuera procesado por un sistema de análisis radiológico.
   if (!image_url) {
     return res.status(400).json({ error: 'Se necesita una URL de imagen' });
   }

@@ -1,57 +1,51 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
 export const config = {
   api: {
-    bodyParser: false,  // Desactivamos el bodyParser porque vamos a manejar la carga de archivos manualmente
+    bodyParser: false,
   },
 };
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'POST') {
-    try {
-      // Creamos una promesa para manejar la carga del archivo
-      const fileData = await new Promise<{ filePath: string }>((resolve, reject) => {
-        let data = Buffer.alloc(0); // Aquí almacenaremos los datos del archivo
+export async function POST(req: NextRequest) {
+  try {
+    const reader = req.body?.getReader();
+    if (!reader) throw new Error('ReadableStream not supported');
 
-        // Leemos los datos del archivo del request
-        req.on('data', chunk => {
-          data = Buffer.concat([data, chunk]); // Concatenamos los trozos de datos
-        });
+    let receivedLength = 0;
+    const chunks: Uint8Array[] = [];
 
-        req.on('end', async () => {
-          try {
-            // Obtenemos el nombre del archivo (puedes ajustarlo según tu caso)
-            const filename = `file-${Date.now()}.png`;
-            const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-
-            // Verificamos que el directorio exista, si no, lo creamos
-            await fs.promises.mkdir(uploadDir, { recursive: true });
-
-            const uploadPath = path.join(uploadDir, filename);
-
-            // Escribimos los datos en el sistema de archivos usando promesas
-            await fs.promises.writeFile(uploadPath, data);
-            resolve({ filePath: `/uploads/${filename}` });
-
-          } catch (err) {
-            reject('Error writing file to disk');
-          }
-        });
-
-        req.on('error', (err) => {
-          reject('Error processing file');
-        });
-      });
-
-      // Enviamos la URL del archivo como respuesta
-      return res.status(200).json({ url: fileData.filePath });
-    } catch (error) {
-      return res.status(500).json({ error: 'Error uploading file' });
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      if (value) {
+        chunks.push(value);
+        receivedLength += value.length;
+      }
     }
-  } else {
-    // Si no es un POST, respondemos con un método no permitido
-    return res.status(405).json({ error: 'Method not allowed' });
+
+    const data = new Uint8Array(receivedLength);
+    let position = 0;
+    for (const chunk of chunks) {
+      data.set(chunk, position);
+      position += chunk.length;
+    }
+
+    const filename = `file-${Date.now()}.png`;
+    const uploadDir = path.join(process.cwd(), 'public', 'uploads');
+    console.log(`Saving file to: ${uploadDir}`);
+
+    await fs.promises.mkdir(uploadDir, { recursive: true });
+    const uploadPath = path.join(uploadDir, filename);
+
+    await fs.promises.writeFile(uploadPath, data);
+    console.log(`File saved: ${uploadPath}`);
+
+    return NextResponse.json({ url: `/uploads/${filename}` }, { status: 200 });
+  } catch (error) {
+    console.error('Error uploading file:', error);
+    return NextResponse.json({ error: 'Error uploading file' }, { status: 500 });
   }
 }
+

@@ -1,6 +1,7 @@
 "use client";
 import type { Metadata } from "next";
-import { getReport, uploadFile } from "@/services/apiService";
+import { uploadFile, getReport } from '@/services/apiService';
+
 import { Inter } from "next/font/google";
 import { useState } from "react";
 import "./globals.css";
