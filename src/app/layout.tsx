@@ -1,9 +1,8 @@
+// src/app/layout.tsx
 "use client";
-import type { Metadata } from "next";
-import { getReport, uploadFile } from "@/services/apiService";
-import { Inter } from "next/font/google";
-import { useState } from "react";
-import "./globals.css";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import Dropzone from "@/components/dropzone";
@@ -81,25 +80,15 @@ export default function RootLayout({
         console.error('Error uploading file or getting report:', error);
       }
     } else {
-      console.error('No image selected. Please upload an image first.');
+      router.push("/login");
     }
-  };
+  }, []);
 
   return (
     <html lang="en">
-      <body style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <body>
         <Header />
-        <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          {!showDashboard ? (
-            <div style={{ textAlign: 'center' }}>
-              <Dropzone onDrop={handleDrop} />
-              <br />
-              <Boton texto={"Analizar"} onClick={handleAnalyzeClick} />
-            </div>
-          ) : (
-            <DashboardMedico imageUrl={imageUrl} report={report} />
-          )}
-        </div>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>
