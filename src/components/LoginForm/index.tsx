@@ -1,5 +1,6 @@
 // src/components/LoginForm.tsx
 "use client";
+import { login } from "@/src/services/apiService";
 import { useState } from "react";
 
 interface LoginFormProps {
@@ -14,12 +15,15 @@ export default function LoginForm({ onSuccess, setError }: LoginFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-   
-    if (username === "admin" && password === "password123") {
-      onSuccess();
-    } else {
+    login(username,password).then(onSuccess).catch(e=>{
       setError("Credenciales incorrectas");
-    }
+    })
+   
+    // if (username === "admin" && password === "password123") {
+    //   onSuccess();
+    // } else {
+    //   setError("Credenciales incorrectas");
+    // }
   };
 
   return (
