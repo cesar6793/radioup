@@ -1,13 +1,39 @@
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '';  // Set BASE_URL dynamically based on environment
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL // Set BASE_URL dynamically based on environment
 const POCKETBASE_URL  = process.env.NEXT_PUBLIC_API_POCKETBASE
 
 import PocketBase from 'pocketbase';
 
-const pb = new PocketBase('http://127.0.0.1:8090');
+const pb = new PocketBase(POCKETBASE_URL);
+
+class Radiology{
+  patient
+  medic
+  confidence
+  created
+  constructor(patient,medic,confidence,created){
+    this.patient = patient
+    this.medic = medic
+    this.confidence = confidence
+    this.created = created
+  }
+
+}
 
 
-
-
+export async function getRadiologies(){
+  // console.log(filters)
+  // const chainFilter = JSON.stringify(filters).slice(1,-1)
+  // console.log(chainFilter)
+  const resultList = await pb.collection('radiologies').getList(1, 50,
+    
+    {
+      // filter:Object.keys(filters).length != 0 ? chainFilter : '',
+      expand:'medic,patient',
+    }
+  );
+  console.log(resultList.items)
+  return resultList.items
+}
 
 // Function to upload a file to /api/uploadfile
 export async function uploadFile(formData) {
