@@ -35,4 +35,4 @@ const getReportHandler = (req: NextApiRequest, res: NextApiResponse) => {
   return res.status(200).json({ report: radiologicalReport });
 };
 
-export default getReportHandler;
+// export default getReportHandler;

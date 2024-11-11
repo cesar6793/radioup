@@ -1,7 +1,7 @@
 import { getRadiografias, getRadiologies } from "@/src/services/apiService";
 import { RecordModel } from "pocketbase";
 import React, { useEffect, useState } from "react";
-function convertirFechaCorta(fechaLarga: Date) {
+function convertirFechaCorta(fechaLarga: any) {
   const fecha = new Date(fechaLarga); // Asegura que la fecha sea un objeto Date
 
   // Formatear día, mes y año

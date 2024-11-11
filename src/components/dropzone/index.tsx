@@ -23,7 +23,7 @@ const Dropzone = ({ onDrop }) => {
   const dropzoneStyle = {
     border: '2px dashed #000',
     padding: '30px',
-    textAlign: 'center',
+    // textAlign: 'center',
     borderRadius: '10px',
     maxWidth: '1000px',
     margin: 'auto',
